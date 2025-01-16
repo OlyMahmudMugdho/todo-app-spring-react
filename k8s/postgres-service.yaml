@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: postgres-service
+  namespace: todo-app
+spec:
+  clusterIP: None
+  selector:
+    app: postgres
+  ports:
+  - name: postgres
+    protocol: TCP
+    port: 5432
+    targetPort: 5432

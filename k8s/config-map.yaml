@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configs
+  namespace: todo-app
+data:
+  DATABASE_URL: jdbc:postgresql://postgres-service:5432/todo_app
+  DATABASE_HOST: postgres-service
+  DATABASE_NAME: todo_app
