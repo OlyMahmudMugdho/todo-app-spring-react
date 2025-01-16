@@ -9,6 +9,7 @@ type Todo = {
 type TodoContextType = {
   todos: Todo[];
   addTodo: (todo: Todo) => void;
+  deleteTodo: (id: number) => void;
   fetchTodos: () => void;
 };
 
@@ -17,7 +18,6 @@ const TodoContext = createContext<TodoContextType | undefined>(undefined);
 export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  // Fetch todos from the backend
   const fetchTodos = async () => {
     try {
       const response = await fetch("http://localhost:8080/api/todos", {
@@ -40,18 +40,35 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Add a new todo to the context
   const addTodo = (todo: Todo) => {
     setTodos((prevTodos) => [...prevTodos, todo]);
   };
 
-  // Fetch todos on mount
+  const deleteTodo = async (id: number) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/todos/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (response.status === 204) {
+        setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+      } else {
+        console.error("Error deleting todo");
+      }
+    } catch (error) {
+      console.error("Error deleting todo", error);
+    }
+  };
+
   useEffect(() => {
     fetchTodos();
   }, []);
 
   return (
-    <TodoContext.Provider value={{ todos, addTodo, fetchTodos }}>
+    <TodoContext.Provider value={{ todos, addTodo, deleteTodo, fetchTodos }}>
       {children}
     </TodoContext.Provider>
   );
