@@ -7,8 +7,9 @@ FILES=(
   "secret.yaml"                # Deploy Secret
   "postgres-service.yaml"      # Postgres service
   "postgres-statefulset.yaml"  # Postgres StatefulSet
-  "backend-deployment.yaml"    # Backend deployment
-  "backend-service.yaml"       # Backend service
+  "app-deployment.yaml"    # Backend deployment
+  "app-service.yaml"       # Backend service
+  "ingress.yaml"           # Ingress
 )
 
 # Ensure the user has kubectl installed
