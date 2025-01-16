@@ -20,7 +20,7 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const fetchTodos = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/todos", {
+      const response = await fetch("/api/todos", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const deleteTodo = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/todos/${id}`, {
+      const response = await fetch(`/api/todos/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

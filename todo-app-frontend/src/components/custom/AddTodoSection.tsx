@@ -15,7 +15,7 @@ export function AddTodo() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/api/todos", {
+      const response = await fetch("/api/todos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
