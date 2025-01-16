@@ -2,9 +2,9 @@ spring:
   application:
     name: todo-app-backend
   datasource:
-    url: jdbc:postgresql://localhost:5432/dummy
-    username: postgres
-    password: mysecretpassword
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
