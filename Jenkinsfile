@@ -66,6 +66,15 @@ pipeline {
             }
         }
 
+        stage('Delete evicted pods') {
+            steps {
+                sh '''
+                kubectl get pods --all-namespaces -o json | jq '.items[] | select(.status.reason!=null) | select(.status.reason | contains("Evicted")) | "kubectl delete pods \(.metadata.name) -n \(.metadata.namespace)"' | xargs -n 1 bash -c
+
+                '''
+            }
+        }
+
         stage('Apply Kubernetes Manifests') {
             steps {
                 dir(KUBERNETES_MANIFESTS_DIR) {
