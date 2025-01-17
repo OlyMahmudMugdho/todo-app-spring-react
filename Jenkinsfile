@@ -37,7 +37,7 @@ pipeline {
 
 
         stage('Make the jar file') {
-            steps {
+            steps {sudo 
                 dir('todo-app-backend') {
                     sh '''
                     export DATABASE_URL="jdbc:postgresql://localhost:5432/postgres" && export DATABASE_USERNAME=postgres && export DATABASE_PASSWORD=mysecretpassword && ./mvnw clean install
@@ -70,14 +70,14 @@ pipeline {
             steps {
                 dir(KUBERNETES_MANIFESTS_DIR) {
                     sh '''
-                    kubectl apply -f namespace.yaml
-                    kubectl apply -f config-map.yaml
-                    kubectl apply -f secret.yaml
-                    kubectl apply -f postgres-statefulset.yaml
-                    kubectl apply -f postgres-service.yaml
-                    kubectl apply -f app-deployment.yaml
-                    kubectl apply -f app-service.yaml
-                    kubectl apply -f ingress.yaml
+                    sudo kubectl apply -f namespace.yaml
+                    sudo kubectl apply -f config-map.yaml
+                    sudo kubectl apply -f secret.yaml
+                    sudo kubectl apply -f postgres-statefulset.yaml
+                    sudo kubectl apply -f postgres-service.yaml
+                    sudo kubectl apply -f app-deployment.yaml
+                    sudo kubectl apply -f app-service.yaml
+                    sudo kubectl apply -f ingress.yaml
                     '''
                 }
             }
