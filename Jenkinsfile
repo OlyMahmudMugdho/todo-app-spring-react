@@ -78,7 +78,7 @@ pipeline {
                     sudo kubectl apply -f postgres-service.yaml
                     sudo kubectl apply -f app-deployment.yaml
                     sudo kubectl apply -f app-service.yaml
-                    sudo kubctl port-forward service/app-service 80:80 -n todo-app
+                    sudo nohup kubectl port-forward service/app-service 8080:80 -n todo-app > /dev/null 2>&1
                     '''
                 }
             }
