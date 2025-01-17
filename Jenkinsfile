@@ -15,6 +15,14 @@ pipeline {
             }
         }
 
+        stage('Start the postgres docker image') {
+            steps {
+                sh '''
+                docker-compose up -d
+                '''
+            }
+        }
+
         stage('Docker Login') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', 
@@ -26,6 +34,19 @@ pipeline {
                 }
             }
         }
+
+
+        stage('Make the jar file') {
+            steps {
+                dir('todo-app-backend') {
+                    sh '''
+                    export 
+                    ./mvnw clean install
+                    '''
+                }
+            }
+        }
+
 
         stage('Build Backend Docker Image') {
             steps {
