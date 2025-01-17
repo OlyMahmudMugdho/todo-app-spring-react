@@ -40,8 +40,7 @@ pipeline {
             steps {
                 dir('todo-app-backend') {
                     sh '''
-                    export 
-                    ./mvnw clean install
+                    export DATABASE_URL="jdbc:postgresql://localhost:5432/postgres" && export DATABASE_USERNAME=postgres && export DATABASE_PASSWORD=mysecretpassword && ./mvnw clean install
                     '''
                 }
             }
