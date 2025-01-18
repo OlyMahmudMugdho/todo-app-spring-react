@@ -79,7 +79,7 @@ pipeline {
                     sudo kubectl apply -f app-deployment.yaml
                     sudo kubectl apply -f app-service.yaml
                     
-                    sudo nohup sudo kubectl port-forward service/app-service 8080:80 -n todo-app > /dev/null 2>&1 &
+                    sudo nohup sudo kubectl port-forward service/app-service 8080:80 -n todo-app --address 0.0.0.0 > /dev/null 2>&1 &
 
                     '''
                 }
