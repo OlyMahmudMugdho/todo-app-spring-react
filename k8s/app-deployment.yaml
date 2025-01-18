@@ -17,11 +17,20 @@ spec:
         image: olymahmudmugdho/todo-app-spring-react
         env:
         - name: DATABASE_URL
-          value: "jdbc:postgresql://postgres-service:5432/todo_app"
+          valueFrom:
+            configMapKeyRef:
+              name: configs
+              key: DATABASE_URL
         - name: DATABASE_USERNAME
-          value: "postgres"
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secrets
+              key: username
         - name: DATABASE_PASSWORD
-          value: "mysecretpassword"
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secrets
+              key: password
         resources:
           limits:
             memory: "1Gi"

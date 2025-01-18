@@ -26,11 +26,20 @@ spec:
             memory: 256Mi
         env:
         - name: POSTGRES_PASSWORD
-          value: "mysecretpassword"
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secrets
+              key: password
         - name: POSTGRES_USER
-          value: "postgres"
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secrets
+              key: username
         - name: POSTGRES_DB
-          value: "todo_app"
+          valueFrom:
+            configMapKeyRef:
+              name: configs
+              key: DATABASE_NAME
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
         volumeMounts:
